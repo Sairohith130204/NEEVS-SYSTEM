@@ -1,0 +1,21 @@
+# Accuracy Metrics
+from sklearn.metrics import mean_absolute_error, mean_squared_error
+import numpy as np
+
+actual = test_roll['Amount'].values
+predicted = np.array(predictions)
+
+# Avoid divide-by-zero error in MAPE
+nonzero_actual = np.where(actual == 0, 1e-8, actual)
+
+# Calculate metrics
+mae = mean_absolute_error(actual, predicted)
+rmse = np.sqrt(mean_squared_error(actual, predicted))
+mape = np.mean(np.abs((actual - predicted) / nonzero_actual)) * 100
+
+# Print metrics clearly
+print("\n✅ 12-Month Rolling Forecast Accuracy Metrics:")
+print(f"MAE  (Mean Absolute Error):      {mae:.2f}")
+print(f"RMSE (Root Mean Squared Error):  {rmse:.2f}")
+print(f"MAPE (Mean Absolute % Error):    {mape:.2f}%")
+
